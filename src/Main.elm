@@ -37,7 +37,7 @@ view : Model -> Html Msg
 view model =
     div []
         [ img [ src "/logo.svg" ] []
-        , h1 [] [ text "Your Elm App is working!" ]
+        , h1 [] [ text "Welcome to Toltec" ]
         ]
 
 
