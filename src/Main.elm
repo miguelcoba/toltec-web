@@ -1,55 +1,20 @@
-module Main exposing (..)
+module Main exposing (main)
 
-import Html exposing (Html, text, div, h1, img)
-import Html.Attributes exposing (src)
-
-
----- MODEL ----
-
-
-type alias Model =
-    {}
-
-
-init : ( Model, Cmd Msg )
-init =
-    ( {}, Cmd.none )
+import Json.Decode as Decode exposing (Value)
+import Navigation
+import Model exposing (Model)
+import Messages exposing (Msg(..))
+import Route exposing (Route)
+import Subscriptions exposing (subscriptions)
+import Update exposing (update, init)
+import View exposing (view)
 
 
-
----- UPDATE ----
-
-
-type Msg
-    = NoOp
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    ( model, Cmd.none )
-
-
-
----- VIEW ----
-
-
-view : Model -> Html Msg
-view model =
-    div []
-        [ img [ src "/logo.svg" ] []
-        , h1 [] [ text "Welcome to Toltec" ]
-        ]
-
-
-
----- PROGRAM ----
-
-
-main : Program Never Model Msg
+main : Program Value Model Msg
 main =
-    Html.program
-        { view = view
-        , init = init
+    Navigation.programWithFlags (Route.fromLocation >> SetRoute)
+        { init = init
+        , view = view
         , update = update
-        , subscriptions = always Sub.none
+        , subscriptions = subscriptions
         }
