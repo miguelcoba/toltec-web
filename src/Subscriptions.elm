@@ -1,7 +1,7 @@
 module Subscriptions exposing (subscriptions)
 
-import Model exposing (Model, Page(..), PageState(..), getPage)
 import Messages exposing (Msg(..))
+import Model exposing (Model, Page(..), PageState(..), getPage)
 
 
 subscriptions : Model -> Sub Msg
@@ -23,8 +23,8 @@ pageSubscriptions page =
         Home ->
             Sub.none
 
-        Login ->
+        Login _ ->
             Sub.none
 
-        Register ->
+        Register _ ->
             Sub.none

@@ -1,11 +1,11 @@
 module View exposing (..)
 
 import Html exposing (..)
-import Model exposing (Model, Page(..), PageState(..))
 import Messages exposing (Msg(..))
-import Page.Page as Page exposing (ActivePage)
+import Model exposing (Model, Page(..), PageState(..))
 import Page.Home as Home
 import Page.NotFound as NotFound
+import Page.Page as Page exposing (ActivePage)
 import Session.Login as Login
 import Session.Register as Register
 
@@ -38,10 +38,12 @@ viewPage isLoading page =
                 Home.view
                     |> frame Page.Home
 
-            Login ->
-                Login.view
+            Login subModel ->
+                Login.view subModel
                     |> frame Page.Login
+                    |> Html.map LoginMsg
 
-            Register ->
-                Register.view
+            Register subModel ->
+                Register.view subModel
                     |> frame Page.Register
+                    |> Html.map RegisterMsg
