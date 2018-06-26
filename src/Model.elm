@@ -27,7 +27,7 @@ type alias Model =
 
 initialModel : Value -> Model
 initialModel val =
-    { session = Nothing
+    { session = decodeSessionFromJson val
     , pageState = Loaded Blank
     }
 
@@ -40,3 +40,11 @@ getPage pageState =
 
         TransitioningFrom page ->
             page
+
+
+decodeSessionFromJson : Value -> Maybe Session
+decodeSessionFromJson json =
+    json
+        |> Decode.decodeValue Decode.string
+        |> Result.toMaybe
+        |> Maybe.andThen (Decode.decodeString Session.decoder >> Result.toMaybe)

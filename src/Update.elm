@@ -48,6 +48,18 @@ updatePage page msg model =
         ( SetRoute route, _ ) ->
             updateRoute route model
 
+        ( SetSession newSession, _ ) ->
+            let
+                cmd =
+                    -- If we just signed out, then redirect to Home.
+                    if model.session /= Nothing && newSession == Nothing then
+                        Route.modifyUrl Route.Home
+                    else
+                        Cmd.none
+            in
+                { model | session = newSession }
+                    => cmd
+
         ( LoginMsg subMsg, Login subModel ) ->
             let
                 ( ( pageModel, cmd ), msgFromPage ) =

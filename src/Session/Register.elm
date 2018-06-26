@@ -9,7 +9,7 @@ import Http
 import Json.Decode as Decode exposing (Decoder, decodeString, field, string)
 import Json.Decode.Pipeline exposing (decode)
 import Route exposing (Route)
-import Session.Model exposing (Session)
+import Session.Model exposing (Session, storeSession)
 import Session.Request exposing (register)
 import Util exposing ((=>))
 import Validate exposing (Validator, ifBlank, validate)
@@ -133,7 +133,7 @@ update msg model =
 
         RegisterCompleted (Ok session) ->
             model
-                => Route.modifyUrl Route.Home
+                => Cmd.batch [ storeSession session, Route.modifyUrl Route.Home ]
                 => SetSession session
 
 
