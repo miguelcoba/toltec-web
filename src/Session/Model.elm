@@ -4,7 +4,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline exposing (decode, required, optional)
 import Json.Encode as Encode exposing (Value)
 import Ports
-import Session.AuthToken as AuthToken exposing (AuthToken, decoder)
+import Session.AuthToken as AuthToken exposing (AuthToken)
 import User.Model as User exposing (User, decoder)
 import Util exposing ((=>))
 
