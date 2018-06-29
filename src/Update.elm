@@ -5,6 +5,8 @@ import Json.Decode as Decode exposing (Value)
 import Messages exposing (Msg(..))
 import Model exposing (Model, initialModel, Page(..), PageState(..), getPage)
 import Navigation exposing (Location)
+import Page.Error as Error
+import Page.Page as Page exposing (ActivePage)
 import Ports
 import Route exposing (Route)
 import Session.Login as Login
@@ -38,11 +40,6 @@ updateRoute maybeRoute model =
 
         Just Route.Register ->
             { model | pageState = Loaded (Register Register.initialModel) } => Cmd.none
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    updatePage (getPage model.pageState) msg model
 
 
 updatePage : Page -> Msg -> Model -> ( Model, Cmd Msg )
@@ -102,6 +99,9 @@ updatePage page msg model =
                     , Route.modifyUrl Route.Home
                     ]
 
+        ( LogoutCompleted (Err error), _ ) ->
+            pageError model Page.Other "There was a problem while trying to logout"
+
         ( _, NotFound ) ->
             -- Disregard incoming messages when we're on the
             -- NotFound page.
@@ -110,3 +110,17 @@ updatePage page msg model =
         ( _, _ ) ->
             -- Disregard incoming messages that arrived for the wrong page
             model => Cmd.none
+
+
+pageError : Model -> ActivePage -> String -> ( Model, Cmd msg )
+pageError model activePage errorMessage =
+    let
+        error =
+            Error.pageError activePage errorMessage
+    in
+        { model | pageState = Loaded (Error error) } => Cmd.none
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    updatePage (getPage model.pageState) msg model

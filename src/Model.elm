@@ -1,14 +1,16 @@
 module Model exposing (Model, initialModel, Page(..), PageState(..), getPage)
 
 import Json.Decode as Decode exposing (Value)
+import Page.Error as Error exposing (PageError)
 import Session.Login as Login
-import Session.Register as Register
 import Session.Model as Session exposing (Session)
+import Session.Register as Register
 
 
 type Page
     = Blank
     | NotFound
+    | Error PageError
     | Home
     | Login Login.Model
     | Register Register.Model

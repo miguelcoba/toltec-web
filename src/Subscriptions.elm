@@ -22,6 +22,9 @@ pageSubscriptions page =
         NotFound ->
             Sub.none
 
+        Error _ ->
+            Sub.none
+
         Home ->
             Sub.none
 
