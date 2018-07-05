@@ -16,10 +16,10 @@ view : Model -> Html Msg
 view model =
     case model.pageState of
         Loaded page ->
-            viewPage True model.session page
+            viewPage False model.session page
 
         TransitioningFrom page ->
-            viewPage False model.session page
+            viewPage True model.session page
 
 
 viewPage : Bool -> Maybe Session -> Page -> Html Msg

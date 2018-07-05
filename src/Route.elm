@@ -25,10 +25,10 @@ route =
 
 
 routeToString : Route -> String
-routeToString page =
+routeToString route =
     let
         pieces =
-            case page of
+            case route of
                 Home ->
                     []
 
