@@ -1,4 +1,4 @@
-module Session.Login exposing (ExternalMsg(..), Model, Msg, initialModel, update, view)
+module Session.Login exposing (ExternalMsg(..), Model, Msg(..), Field(..), initialModel, update, view)
 
 import Helpers.Decode exposing (optionalError, optionalFieldError)
 import Helpers.Form as Form

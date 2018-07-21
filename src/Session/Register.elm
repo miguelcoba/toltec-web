@@ -1,4 +1,4 @@
-module Session.Register exposing (ExternalMsg(..), Model, Msg, initialModel, update, view)
+module Session.Register exposing (ExternalMsg(..), Model, Msg(..), Field(..), initialModel, update, view)
 
 import Helpers.Decode exposing (optionalError, optionalFieldError)
 import Helpers.Form as Form
@@ -167,7 +167,12 @@ modelValidator =
 
 errorsDecoder : Decoder (List String)
 errorsDecoder =
-    decode (\name email password error -> error :: List.concat [ name, email, password ])
+    decode
+        (\name email password error ->
+            error
+                :: List.concat [ name, email, password ]
+                |> List.filter (not << String.isEmpty)
+        )
         |> optionalFieldError "name"
         |> optionalFieldError "email"
         |> optionalFieldError "password"
