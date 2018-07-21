@@ -15,9 +15,6 @@ import Util exposing ((=>))
 import Validate exposing (Validator, ifBlank, validate)
 
 
--- MESSAGES --
-
-
 type Msg
     = SubmitForm
     | SetEmail String
@@ -28,10 +25,6 @@ type Msg
 type ExternalMsg
     = NoOp
     | SetSession Session
-
-
-
--- MODEL --
 
 
 type alias Model =
@@ -47,10 +40,6 @@ initialModel =
     , email = ""
     , password = ""
     }
-
-
-
--- VIEW --
 
 
 view : Model -> Html Msg
@@ -75,10 +64,6 @@ viewForm =
         , Form.password "Password" [ onInput SetPassword ] []
         , button [ class "b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" ] [ text "Sign in" ]
         ]
-
-
-
--- UPDATE --
 
 
 update : Msg -> Model -> ( ( Model, Cmd Msg ), ExternalMsg )
@@ -128,10 +113,6 @@ update msg model =
                 => SetSession session
 
 
-
--- VALIDATION --
-
-
 type Field
     = Form
     | Email
@@ -148,10 +129,6 @@ modelValidator =
         [ ifBlank .email (Email => "email can't be blank.")
         , ifBlank .password (Password => "password can't be blank.")
         ]
-
-
-
--- DECODERS --
 
 
 errorsDecoder : Decoder (List String)
